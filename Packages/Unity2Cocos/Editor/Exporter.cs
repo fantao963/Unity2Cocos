@@ -19,12 +19,15 @@ namespace Unity2Cocos
 
 		public static void Export()
 		{
-			OutputFolderPath = EditorUtility.OpenFolderPanel("Select Export Folder", "", "");
+			string lastExportFolderPath = EditorPrefs.GetString("Unity2Cocos.LastExportFolderPath", "");
+
+			OutputFolderPath = EditorUtility.OpenFolderPanel("Select Export Folder", lastExportFolderPath, "");
 			
 			if (string.IsNullOrEmpty(OutputFolderPath))
 			{
 				return;
 			}
+            EditorPrefs.SetString("Unity2Cocos.LastExportFolderPath", OutputFolderPath);
 			
 			// Setup
 			EditorUtility.DisplayProgressBar(

@@ -69,6 +69,7 @@ namespace Unity2Cocos
 			
 			var ccMat = Converter.ConvertMaterial(asset);
 			var ccMeta = new Meta();
+            ccMeta.uuid = Utils.GenerateGuid(Info.UnityAssetPath);
 			ExportAssetToJson(ccMat);
 			ExportMeta(ccMeta);
 			return ccMeta.uuid;

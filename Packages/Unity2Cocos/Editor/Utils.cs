@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using cc;
+using System.Security.Cryptography;
 
 namespace Unity2Cocos
 {
@@ -17,8 +18,26 @@ namespace Unity2Cocos
 		{
 			return Guid.NewGuid().ToString();
 		}
-		
-		public static string GenerateBase64EncodedUuid()
+
+        public static string GenerateGuid(string input)
+		{
+            byte[] _byteIds = Encoding.UTF8.GetBytes(input);
+
+            MD5CryptoServiceProvider _md5 = new MD5CryptoServiceProvider();
+            byte[] _checksum = _md5.ComputeHash(_byteIds);
+
+            //Convert checksum into 4 ulong parts and use BASE36 to encode both
+            string part1 = BitConverter.ToString(_checksum, 0, 4).Replace("-", string.Empty);
+            string part2 = BitConverter.ToString(_checksum, 4, 2).Replace("-", string.Empty);
+            string part3 = BitConverter.ToString(_checksum, 6, 2).Replace("-", string.Empty);
+            string part4 = BitConverter.ToString(_checksum, 8, 2).Replace("-", string.Empty);
+            string part5 = BitConverter.ToString(_checksum, 10, 6).Replace("-", string.Empty);
+
+            return Guid.Parse($"{part1}-{part2}-{part3}-{part4}-{part5}").ToString();
+        }
+
+
+        public static string GenerateBase64EncodedUuid()
 		{
 			var uuidBytes = Guid.NewGuid().ToByteArray();
 			var base64EncodedUuid = Convert.ToBase64String(uuidBytes);

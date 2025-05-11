@@ -61,6 +61,7 @@ namespace Unity2Cocos
 			var userData = new Meta.UserData();
 			ccMeta.subMetas = subMetas;
 			ccMeta.userData = userData;
+			ccMeta.uuid=Utils.GenerateGuid(info.UnityAssetPath);
 			
 			var result = string.Empty;
 			var meshes = AssetDatabase.LoadAllAssetsAtPath(info.UnityAssetPath).OfType<Mesh>().ToArray();

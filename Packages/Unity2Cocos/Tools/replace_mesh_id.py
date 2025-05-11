@@ -85,7 +85,11 @@ def replace_uuid(content, meta_files, uuid, value, search_key):
 
 
 if __name__ == "__main__":
-    folder_path = input("Enter the folder path: ")
+    if len(sys.argv) != 2:
+        print("Usage: python replace_mesh_id.py <folder_path>")
+        sys.exit(1)
+    
+    folder_path = sys.argv[1]
     print("--- Replace mesh id start ---")
     replace_uuids_in_scene(folder_path)
     print("")

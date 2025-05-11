@@ -146,6 +146,7 @@ namespace Unity2Cocos
 		public override string Export(UnityEditor.SceneAsset asset)
 		{
 			var ccMeta = new Meta();
+			ccMeta.uuid = Utils.GenerateGuid(Info.UnityAssetPath);
 			var ccAsset = new List<CCType>();
 			
 			// SceneAsset

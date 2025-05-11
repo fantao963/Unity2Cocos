@@ -85,7 +85,7 @@ namespace Unity2Cocos
 		public override string Export(Texture2D asset)
 		{
 			var ccMeta = new Meta();
-
+			ccMeta.uuid= Utils.GenerateGuid(Info.UnityAssetPath);
 			var importer = AssetImporter.GetAtPath(Info.UnityAssetPath) as TextureImporter;
 			if (importer == null)
 			{
@@ -146,9 +146,10 @@ namespace Unity2Cocos
 		public static string ExportPBRMap(Texture2D tex, string srcPath)
 		{
 			var ccMeta = new Meta();
-
+			
 			var info = new ExportInfo(srcPath, Exporter.OutputFolderPath, ".png");
-			var subAssetUuid = "6c48a";
+            ccMeta.uuid = Utils.GenerateGuid(info.UnityAssetPath+"_pbr");
+            var subAssetUuid = "6c48a";
 			var fullUuid = $"{ccMeta.uuid}@{subAssetUuid}";
 			var subMetas = new Dictionary<string, SubMeta>();
 			var subMeta = new SubMeta()
